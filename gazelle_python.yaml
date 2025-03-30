@@ -1,0 +1,49 @@
+# GENERATED FILE - DO NOT EDIT!
+#
+# To update this file, run:
+#   bazel run //:gazelle_python_manifest.update
+
+manifest:
+  modules_mapping:
+    OpenSSL: pyOpenSSL
+    aioquic: aioquic
+    annotated_types: annotated_types
+    anyio: anyio
+    attr: attrs
+    attrs: attrs
+    certifi: certifi
+    cffi: cffi
+    click: click
+    cryptography: cryptography
+    dotenv: python_dotenv
+    fastapi: fastapi
+    h11: h11
+    h2: h2
+    hpack: hpack
+    httpcore: httpcore
+    httpx: httpx
+    hypercorn: hypercorn
+    hyperframe: hyperframe
+    idna: idna
+    iniconfig: iniconfig
+    packaging: packaging
+    pluggy: pluggy
+    priority: priority
+    py: pytest
+    pyasn1: pyasn1
+    pyasn1_modules: pyasn1_modules
+    pycparser: pycparser
+    pydantic: pydantic
+    pydantic_core: pydantic_core
+    pydantic_settings: pydantic_settings
+    pylsqpack: pylsqpack
+    pytest: pytest
+    service_identity: service_identity
+    sniffio: sniffio
+    starlette: starlette
+    typing_extensions: typing_extensions
+    uvicorn: uvicorn
+    wsproto: wsproto
+  pip_repository:
+    name: pip
+integrity: e48ee3ae64c6ea05918cceebb2c820a0c987f413a12bc8397f73f2bf1debad3a

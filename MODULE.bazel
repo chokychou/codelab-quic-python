@@ -1,0 +1,60 @@
+"""Search Panel
+"""
+
+##########################
+# Generic rules          #
+##########################
+
+bazel_dep(name = "gazelle", version = "0.30.0", repo_name = "bazel_gazelle")
+bazel_dep(name = "grpc", version = "1.69.0")
+bazel_dep(name = "protobuf", version = "29.2")
+bazel_dep(name = "rules_oci", version = "2.0.1")
+
+##########################
+# Go rules               #
+##########################
+
+bazel_dep(name = "rules_go", version = "0.51.0")
+
+##########################
+# Python rules           #
+##########################
+
+bazel_dep(name = "aspect_bazel_lib", version = "2.7.8")
+bazel_dep(name = "aspect_rules_py", version = "0.7.3")
+bazel_dep(name = "rules_python", version = "0.34.0")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "1.0.0")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    configure_coverage_tool = True,
+    python_version = "3.12",
+)
+use_repo(python, "python_3_12")
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    hub_name = "pip",
+    python_version = "3.12",
+    requirements_lock = "//:requirements_lock.txt",
+)
+use_repo(pip, "pip")
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "python",
+    image = "docker.io/library/python",
+    platforms = [
+        "linux/arm64/v8",
+        "linux/arm/v7",
+        "linux/amd64",
+    ],
+    tag = "3.14-rc-slim-bullseye",
+)
+use_repo(
+    oci,
+    "python",
+    "python_linux_amd64",
+    "python_linux_arm64_v8",
+    "python_linux_arm_v7",
+)
