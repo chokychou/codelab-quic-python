@@ -25,8 +25,8 @@ platform(
 py_oci_image(
     name = "service_image",
     base = "@python",
-    binary = "//proxy_server:service",
-    entrypoint = ["/proxy_server/service"],
+    binary = "//src/fastapi:service",
+    entrypoint = ["/src/fastapi/service"],
 )
 
 platform_transition_filegroup(
@@ -39,7 +39,7 @@ platform_transition_filegroup(
 )
 
 # To build the image and load it into it into a local runtime:
-# $ bazel run //src:service_image_load
+# $ bazel run //mpm:service_image_load
 # $ docker run --rm service:latest
 oci_load(
     name = "service_image_load",

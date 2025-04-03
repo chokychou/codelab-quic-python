@@ -49,7 +49,7 @@ oci.pull(
         "linux/arm/v7",
         "linux/amd64",
     ],
-    tag = "3.14-rc-slim-bullseye",
+    tag = "3.12.9-slim-bookworm",
 )
 use_repo(
     oci,

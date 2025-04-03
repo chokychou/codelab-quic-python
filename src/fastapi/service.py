@@ -2,6 +2,7 @@ import asyncio
 import ssl
 import aioquic
 import os
+import pydantic_core
 
 from pathlib import Path
 

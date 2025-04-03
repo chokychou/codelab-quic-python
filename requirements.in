@@ -1,8 +1,9 @@
 aioquic
 fastapi 
-httpx
 hypercorn
 pydantic
+pydantic-core
 pydantic-settings
-pytest
 uvicorn
+pytest
+httpx

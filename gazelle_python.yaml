@@ -46,4 +46,4 @@ manifest:
     wsproto: wsproto
   pip_repository:
     name: pip
-integrity: e48ee3ae64c6ea05918cceebb2c820a0c987f413a12bc8397f73f2bf1debad3a
+integrity: d13555d73f9a082c87bce5120e3cbaa4a4571284de0a3e48ed90612bee22eff4

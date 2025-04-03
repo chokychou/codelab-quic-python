@@ -26,7 +26,7 @@ jobs:
         run: bazel test //... --build_tests_only
 
       - name: Build and load service image
-        run: bazel run //src:service_image_load
+        run: bazel run //mpm:service_image_load
 
       - name: Upload to Artifact Registry
         run: echo "todo"
