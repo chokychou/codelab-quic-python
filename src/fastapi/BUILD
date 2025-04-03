@@ -28,6 +28,7 @@ py_library(
         "@pip//aioquic",
         "@pip//fastapi",
         "@pip//hypercorn",
+        "@pip//pydantic",
         "@pip//pydantic_core",
         "@pip//python_dotenv",
     ],
