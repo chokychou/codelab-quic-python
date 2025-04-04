@@ -7,7 +7,6 @@ manifest:
   modules_mapping:
     OpenSSL: pyOpenSSL
     aioquic: aioquic
-    annotated_types: annotated_types
     anyio: anyio
     attr: attrs
     attrs: attrs
@@ -15,8 +14,7 @@ manifest:
     cffi: cffi
     click: click
     cryptography: cryptography
-    dotenv: python_dotenv
-    fastapi: fastapi
+    falcon: falcon
     h11: h11
     h2: h2
     hpack: hpack
@@ -33,17 +31,13 @@ manifest:
     pyasn1: pyasn1
     pyasn1_modules: pyasn1_modules
     pycparser: pycparser
-    pydantic: pydantic
-    pydantic_core: pydantic_core
-    pydantic_settings: pydantic_settings
     pylsqpack: pylsqpack
     pytest: pytest
     service_identity: service_identity
     sniffio: sniffio
-    starlette: starlette
     typing_extensions: typing_extensions
     uvicorn: uvicorn
     wsproto: wsproto
   pip_repository:
     name: pip
-integrity: d13555d73f9a082c87bce5120e3cbaa4a4571284de0a3e48ed90612bee22eff4
+integrity: a4040e362d17a9e3a4170cbc184f8789c6b35d461f5d0c6a3129c6c061c29df7

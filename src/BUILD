@@ -5,31 +5,27 @@ py_binary(
     srcs = ["service.py"],
     visibility = ["//:__subpackages__"],
     deps = [
-        ":fastapi",
+        ":src",
         "@pip//aioquic",
-        "@pip//fastapi",
+        "@pip//falcon",
         "@pip//hypercorn",
-        "@pip//pydantic_core",
     ],
 )
 
 py_library(
-    name = "fastapi",
+    name = "src",
     srcs = [
         "api/api_router/api.py",
-        "api/endpoints/logs.py",
+        "api/endpoints/hello.py",
+        "api/middleware/auth.py",
         "core/config.py",
-        "core/security.py",
-        "schemas/logs.py",
+        "core/logging.py",
         "service.py",
     ],
     visibility = ["//:__subpackages__"],
     deps = [
         "@pip//aioquic",
-        "@pip//fastapi",
+        "@pip//falcon",
         "@pip//hypercorn",
-        "@pip//pydantic",
-        "@pip//pydantic_core",
-        "@pip//python_dotenv",
     ],
 )

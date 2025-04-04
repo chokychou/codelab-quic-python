@@ -1,9 +1,6 @@
 aioquic
-fastapi 
-hypercorn
-pydantic
-pydantic-core
-pydantic-settings
-uvicorn
-pytest
+falcon
 httpx
+hypercorn
+pytest
+uvicorn

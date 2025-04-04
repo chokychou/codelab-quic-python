@@ -1,21 +1,16 @@
-import asyncio
-import ssl
 import aioquic
-import os
-import pydantic_core
+import asyncio
+import falcon
 
-from pathlib import Path
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from falcon import CORSMiddleware
 from hypercorn.asyncio import serve
 from hypercorn.config import Config
+from pathlib import Path
 
-from src.fastapi.api.api_router.api import api_router
-from src.fastapi.core.config import settings
+from src.api.api_router.api import api_router
+from src.core.config import settings
+from src.core.logging import configure_logging
 
-app = FastAPI(title=settings.PROJECT_NAME)
-app.include_router(api_router, prefix=settings.API_STR)
 
 config = Config()
 
@@ -27,7 +22,7 @@ def setup():
 
     if settings.is_development:
         setup_development_env()
-    elif setting.is_production:
+    elif settings.is_production:
         setup_production_env()
     else:
         raise Exception("Invalid environment")
@@ -37,12 +32,12 @@ def setup():
 
 
 def setup_production_env():
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=settings.ALLOWED_ORIGINS,
-        allow_credentials=True,
-        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=["Content-Type", "Authorization"],
+    api_router.add_middleware(
+        falcon.CORSMiddleware(
+            allow_origins=settings.ALLOWED_ORIGINS,
+            allow_credentials="*",
+            expose_headers=["Content-Type", "Authorization"],
+        )
     )
     # In production, use a real certificate
     config.certfile = settings.CERT_FILE
@@ -52,12 +47,12 @@ def setup_production_env():
 
 def setup_development_env():
     # Allow all origins, methods, headers in development
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
+    api_router.add_middleware(
+        falcon.CORSMiddleware(
+            allow_origins="*",
+            allow_credentials="*",
+            expose_headers="*",
+        )
     )
 
     # Generate a self-signed certificate for testing
@@ -89,19 +84,6 @@ def setup_development_env():
     return
 
 
-def configure_logging():
-    import logging
-    import sys
-
-    logger = logging.getLogger("uvicorn")
-    logger.handlers = [logging.StreamHandler(sys.stdout)]
-    if settings.is_development:
-        logger.setLevel(logging.DEBUG)
-    else:
-        logger.setLevel(logging.INFO)
-    return
-
-
 if __name__ == "__main__":
     setup()
-    asyncio.run(serve(app, config))
+    asyncio.run(serve(api_router, config))

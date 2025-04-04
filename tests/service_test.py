@@ -1,19 +1,22 @@
 import unittest
 import httpx
 
-from fastapi.testclient import TestClient
-from src.fastapi.service import app
+from falcon import testing
+from src.service import api_router
 
 
-class TestGetNumber(unittest.TestCase):
+class MyTestCase(testing.TestCase):
+    def setUp(self):
+        super(MyTestCase, self).setUp()
+        self.app = api_router
 
-    client = TestClient(app)
 
-    def test_read_main(self):
-        response = self.client.get("/api/logs/")
-        assert response.status_code == 200
-        print(response.json())
-        assert response.json() == {"message": "logs root endpoint"}
+class TestMyApp(MyTestCase):
+    def test_get_message(self):
+        doc = {"message": "hello smartass"}
+
+        result = self.simulate_get("/hello/smartass")
+        self.assertEqual(result.json, doc)
 
 
 if __name__ == "__main__":
