@@ -25,8 +25,8 @@ platform(
 py_oci_image(
     name = "service_image",
     base = "@python",
-    binary = "//src/fastapi:service",
-    entrypoint = ["/src/fastapi/service"],
+    binary = "//src:service",
+    entrypoint = ["/src/service"],
 )
 
 platform_transition_filegroup(
