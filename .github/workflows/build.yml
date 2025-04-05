@@ -27,18 +27,19 @@ jobs:
           disk-cache: ${{ github.workflow }}
           repository-cache: true
 
-      - name: Run Bazel Tests
-        run: bazel test //... --build_tests_only
+      - name: Run Bazel Tests and Build Image
+        run: |
+          bazel test //... --build_tests_only
+          bazel run //mpm:service_image_load
 
-      - name: Build and load service image
-        run: bazel run //mpm:service_image_load
-
-      # Follows http://github.com/google-github-actions/auth.git.
-      - uses: 'google-github-actions/auth@v2'
+      - name: Authenticate to Google Cloud
+        uses: 'google-github-actions/auth@v2'
         with:
           project_id: 'my-repo'
           workload_identity_provider: 'projects/29291984549/locations/global/workloadIdentityPools/github/providers/my-repo'
 
-      - name: Upload to Artifact Registry
-        run:
-          docker push northamerica-northeast1-docker.pkg.dev/dev-projects-455909/test/service:latest
+      - name: Tag and push to Artifact Registry
+        run: |
+          IMAGE_NAME=northamerica-northeast1-docker.pkg.dev/dev-projects-455909/test/service
+          docker tag service:latest ${IMAGE_NAME}:latest
+          docker push ${IMAGE_NAME}:latest
