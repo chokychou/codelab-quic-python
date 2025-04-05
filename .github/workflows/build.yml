@@ -11,6 +11,11 @@ on:
 jobs:
   build-test-push-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -28,5 +33,12 @@ jobs:
       - name: Build and load service image
         run: bazel run //mpm:service_image_load
 
+      # Follows http://github.com/google-github-actions/auth.git.
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          project_id: 'my-repo'
+          workload_identity_provider: 'projects/29291984549/locations/global/workloadIdentityPools/github/providers/my-repo'
+
       - name: Upload to Artifact Registry
-        run: echo "todo"
+        run: |
+          docker push northamerica-northeast1-docker.pkg.dev/dev-projects-455909/test/service:latest
