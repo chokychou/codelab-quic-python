@@ -26,10 +26,10 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: 'google-github-actions/auth@v2'
         with:
-          project_id: 'my-repo'
           token_format: access_token
           workload_identity_provider: 'projects/29291984549/locations/global/workloadIdentityPools/github/providers/my-repo'
           service_account: 29291984549-compute@developer.gserviceaccount.com
+          access_token_lifetime: 300s
 
       - name: Login to GAR
         uses: docker/login-action@v3
