@@ -22,8 +22,9 @@ jobs:
 
       # # # # # # # # # # # # # # # #
       # Setup GCP and. Follows:
-      # http://github.com/google-github-actions/auth.git
+      # https://github.com/marketplace/actions/docker-login#google-container-registry-gcr
       - name: Authenticate to Google Cloud
+        id: auth
         uses: 'google-github-actions/auth@v2'
         with:
           token_format: access_token
