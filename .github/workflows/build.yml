@@ -15,11 +15,35 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
-      
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # # # # # # # # # # # # # # # #
+      # Setup GCP. Follows:
+      # http://github.com/google-github-actions/auth.git
+      # https://github.com/google-github-actions/setup-gcloud
+      - name: Authenticate to Google Cloud
+        uses: 'google-github-actions/auth@v2'
+        with:
+          project_id: 'my-repo'
+          workload_identity_provider: 'projects/29291984549/locations/global/workloadIdentityPools/github/providers/my-repo'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+        with:
+          version: '>= 363.0.0'
+    
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+
+      - name: Configure Docker to use gcloud auth helper
+        run: |
+          gcloud auth configure-docker northamerica-northeast1-docker.pkg.dev
+
+      # # # # # # # # # # # # # # # #
+      # Build, test and upload image to artifact registry.
       - name: Set up Bazel
         uses: bazel-contrib/setup-bazel@0.14.0
         with:
@@ -31,12 +55,6 @@ jobs:
         run: |
           bazel test //... --build_tests_only
           bazel run //mpm:service_image_load
-
-      - name: Authenticate to Google Cloud
-        uses: 'google-github-actions/auth@v2'
-        with:
-          project_id: 'my-repo'
-          workload_identity_provider: 'projects/29291984549/locations/global/workloadIdentityPools/github/providers/my-repo'
 
       - name: Tag and push to Artifact Registry
         run: |
