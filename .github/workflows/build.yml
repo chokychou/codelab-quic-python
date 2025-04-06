@@ -29,7 +29,7 @@ jobs:
         with:
           token_format: access_token
           workload_identity_provider: 'projects/29291984549/locations/global/workloadIdentityPools/github/providers/my-repo'
-          service_account: 29291984549-compute@developer.gserviceaccount.com
+          service_account: 'my-service-account@dev-projects-455909.iam.gserviceaccount.com'
           access_token_lifetime: 300s
 
       - name: Login to GAR
