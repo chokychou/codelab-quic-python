@@ -25,8 +25,8 @@ platform(
 py_oci_image(
     name = "service_image",
     base = "@python",
-    binary = "//src:service",
-    entrypoint = ["/src/service"],
+    binary = "//src/http:service",
+    entrypoint = ["/src/http/service"],
 )
 
 platform_transition_filegroup(

@@ -1,8 +1,8 @@
 import falcon
 import falcon.asgi
 
-from src.api.endpoints import hello  # Import your endpoint resources
-from src.api.middleware import auth  # Import your middleware (if any)
+from src.http.api.endpoints import hello  # Import your endpoint resources
+from src.http.api.middleware import auth  # Import your middleware (if any)
 
 api_router = falcon.asgi.App(
     middleware=[

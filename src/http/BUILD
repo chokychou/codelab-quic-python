@@ -5,7 +5,7 @@ py_binary(
     srcs = ["service.py"],
     visibility = ["//:__subpackages__"],
     deps = [
-        ":src",
+        ":http",
         "@pip//aioquic",
         "@pip//falcon",
         "@pip//hypercorn",
@@ -13,7 +13,7 @@ py_binary(
 )
 
 py_library(
-    name = "src",
+    name = "http",
     srcs = [
         "api/api_router/api.py",
         "api/endpoints/hello.py",

@@ -7,9 +7,9 @@ from hypercorn.asyncio import serve
 from hypercorn.config import Config
 from pathlib import Path
 
-from src.api.api_router.api import api_router
-from src.core.config import settings
-from src.core.logging import configure_logging
+from src.http.api.api_router.api import api_router
+from src.http.core.config import settings
+from src.http.core.logging import configure_logging
 
 
 config = Config()

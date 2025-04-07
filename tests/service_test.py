@@ -2,7 +2,7 @@ import unittest
 import httpx
 
 from falcon import testing
-from src.service import api_router
+from src.http.service import api_router
 
 
 class MyTestCase(testing.TestCase):
