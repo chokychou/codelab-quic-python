@@ -39,8 +39,8 @@ platform_transition_filegroup(
 )
 
 # To build the image and load it into it into a local runtime:
-# $ bazel run //mpm:service_image_load
-# $ docker run --rm service:latest
+# $ bazel run //mpm:service_image_load --platforms=//mpm:x86_64_linux
+# $ docker run -p 8000:8000 -p 8443:8443 --rm service:latest --platform linux/x86_64_linux
 oci_load(
     name = "service_image_load",
     image = ":platform_image",

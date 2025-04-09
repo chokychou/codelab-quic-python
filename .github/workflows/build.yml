@@ -51,7 +51,7 @@ jobs:
       - name: Run Bazel Tests and Build Image
         run: |
           bazel test //... --build_tests_only
-          bazel run //mpm:service_image_load
+          bazel run //mpm:service_image_load --platforms=//mpm:x86_64_linux
 
       - name: Tag and push to Artifact Registry
         run: |
